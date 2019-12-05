@@ -1,1 +1,1 @@
-g++ -std=c++17 test.cpp -o run.o
+g++ -std=c++17 test.cpp -o run.o -Wall -Wextra -pedantic
