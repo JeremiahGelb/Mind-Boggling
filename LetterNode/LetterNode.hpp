@@ -2,7 +2,7 @@
 #pragma once
 
 #include <memory>
-#include <vector>
+#include <map>
 
 class LetterNode
 {
@@ -12,7 +12,7 @@ public:
     {
     }
 
-    const std::vector<std::shared_ptr<LetterNode>> & edges() const
+    const std::map<char, std::shared_ptr<LetterNode>> & edges() const
     {
         // TODO: make sure you don't add the same edge twice or yourself
         return edges_;
@@ -25,12 +25,12 @@ public:
 
     void add_edge(std::shared_ptr<LetterNode> edge)
     {
-        edges_.push_back(edge);
+        edges_.insert({edge->letter(), edge});
     }
 
 private:
     const char letter_;
-    std::vector<std::shared_ptr<LetterNode>> edges_ = {};
+    std::map<char, std::shared_ptr<LetterNode>> edges_ = {};
 };
 
 std::ostream & operator << (std::ostream & out, const LetterNode & b) 
@@ -39,7 +39,7 @@ std::ostream & operator << (std::ostream & out, const LetterNode & b)
     out << b.letter() << std::endl;
     out << "Edges are: ";
     for(auto & edge : b.edges()){
-        out << edge->letter() << " ";
+        out << edge.second->letter() << " ";
     }
     out << std::endl;
 
