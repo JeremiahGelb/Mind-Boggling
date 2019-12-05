@@ -18,7 +18,7 @@ public:
         return edges_;
     }
 
-    const char letter() const
+    const char & letter() const
     {
         return letter_;
     }
@@ -38,8 +38,8 @@ std::ostream & operator << (std::ostream & out, const LetterNode & b)
     out << "Letter is: ";
     out << b.letter() << std::endl;
     out << "Edges are: ";
-    for(auto & edge : b.edges()){
-        out << edge.second->letter() << " ";
+    for([[maybe_unused]] const auto & [character, letter_node] : b.edges()){
+        out << letter_node->letter() << " ";
     }
     out << std::endl;
 
