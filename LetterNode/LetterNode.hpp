@@ -14,7 +14,6 @@ public:
 
     const std::map<char, std::shared_ptr<LetterNode>> & edges() const
     {
-        // TODO: make sure you don't add the same edge twice or yourself
         return edges_;
     }
 
@@ -25,6 +24,7 @@ public:
 
     void add_edge(std::shared_ptr<LetterNode> edge)
     {
+        // TODO: make sure you don't add the same edge twice or yourself
         edges_.insert({edge->letter(), edge});
     }
 
