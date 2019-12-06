@@ -44,8 +44,8 @@ private:
     std::string word_ = ""; // set when letter is end of word
 };
 
-std::ostream & operator << (std::ostream & out, const LetterNode & b) 
-{ 
+std::ostream & operator << (std::ostream & out, const LetterNode & b)
+{
     out << "Letter is: ";
     out << b.letter() << std::endl;
     out << "Edges are: ";
@@ -54,5 +54,5 @@ std::ostream & operator << (std::ostream & out, const LetterNode & b)
     }
     out << std::endl;
 
-    return out; 
-} 
+    return out;
+}
