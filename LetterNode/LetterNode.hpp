@@ -28,9 +28,20 @@ public:
         edges_.insert({edge->letter(), edge});
     }
 
+    const std::string & word()
+    {
+        return word_;
+    }
+
+    void set_word(std::string & word)
+    {
+        word_ = word;
+    }
+
 private:
     const char letter_;
     std::map<char, std::shared_ptr<LetterNode>> edges_ = {};
+    std::string word_ = ""; // set when letter is end of word
 };
 
 std::ostream & operator << (std::ostream & out, const LetterNode & b) 
