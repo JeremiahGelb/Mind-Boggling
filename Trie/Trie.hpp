@@ -14,3 +14,5 @@ public:
 private:
     const std::shared_ptr<LetterNode> head_;
 }
+
+// TODO: recursive function to print it TrieOrder (haha)
