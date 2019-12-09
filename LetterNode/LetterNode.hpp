@@ -28,26 +28,28 @@ public:
         edges_.insert({edge->letter(), edge});
     }
 
-    const std::string & word()
+    const std::string & name() const
     {
-        return word_;
+        return name_;
     }
 
-    void set_word(std::string & word)
+    void set_name(const std::string & name)
     {
-        word_ = word;
+        name_ = name;
     }
 
 private:
     const char letter_;
     std::map<char, std::shared_ptr<LetterNode>> edges_ = {};
-    std::string word_ = ""; // set when letter is end of word
+    std::string name_ = "";
+    // in trie name can be set to represent a letter being th end of a word
+    // in the gameboard the name can be set to represent the coordinates
 };
 
-std::ostream & operator << (std::ostream & out, const LetterNode & b)
-{
-    out << "Letter is: ";
-    out << b.letter() << std::endl;
+std::ostream & operator << (std::ostream & out, const LetterNode & b) 
+{ 
+    out << "Name_ is: " << b.name() << std::endl;
+    out << "Letter is: " << b.letter() << std::endl;
     out << "Edges are: ";
     for([[maybe_unused]] const auto & [character, letter_node] : b.edges()){
         out << letter_node->letter() << " ";
