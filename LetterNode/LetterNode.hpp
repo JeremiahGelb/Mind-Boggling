@@ -46,8 +46,8 @@ private:
     // in the gameboard the name can be set to represent the coordinates
 };
 
-std::ostream & operator << (std::ostream & out, const LetterNode & b) 
-{ 
+std::ostream & operator << (std::ostream & out, const LetterNode & b)
+{
     out << "Name_ is: " << b.name() << std::endl;
     out << "Letter is: " << b.letter() << std::endl;
     out << "Edges are: ";
