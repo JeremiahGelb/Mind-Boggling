@@ -9,7 +9,5 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: Install cpplint
-      run: pip install cpplint
-    - name: Run linter
-      run: cpplint --recursive */*
+    - name: Install and run cpplint
+      run: pip install cpplint && cpplint --recursive */*
