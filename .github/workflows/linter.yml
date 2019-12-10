@@ -6,8 +6,8 @@ jobs:
   lint:
 
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v1
     - name: Install and run cpplint
-      run: pip install cpplint && python -m cpplint --recursive */*
+      uses: JeremiahGelb/Mind-Boggling/linting@v1
