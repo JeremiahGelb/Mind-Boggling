@@ -25,4 +25,4 @@ clean:
 lint:
 	docker build -t cpplint ./linting
 
-	docker run -it -v $(PWD):/src cpplint sh -c "cd src && cpplint --recursive src/*/*"
+	docker run -it -v $(PWD):/src cpplint sh -c "cd src && cpplint --recursive */*"
