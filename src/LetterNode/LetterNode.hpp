@@ -6,41 +6,34 @@
 #include <string>
 #include <iostream>
 
-class LetterNode
-{
-public:
-    LetterNode(char letter)
-    : letter_(letter)
-    {
+class LetterNode {
+ public:
+    explicit LetterNode(char letter)
+    : letter_(letter) {
     }
 
-    const std::map<char, std::shared_ptr<LetterNode>> & edges() const
-    {
+    const std::map<char, std::shared_ptr<LetterNode>> & edges() const {
         return edges_;
     }
 
-    const char & letter() const
-    {
+    const char & letter() const {
         return letter_;
     }
 
-    void add_edge(std::shared_ptr<LetterNode> edge)
-    {
-        // TODO: make sure you don't add the same edge twice or yourself
+    void add_edge(std::shared_ptr<LetterNode> edge) {
+        // TODO(JG): make sure you don't add the same edge twice or yourself
         edges_.insert({edge->letter(), edge});
     }
 
-    const std::string & name() const
-    {
+    const std::string & name() const {
         return name_;
     }
 
-    void set_name(const std::string & name)
-    {
+    void set_name(const std::string & name) {
         name_ = name;
     }
 
-private:
+ private:
     const char letter_;
     std::map<char, std::shared_ptr<LetterNode>> edges_ = {};
     std::string name_ = "";
