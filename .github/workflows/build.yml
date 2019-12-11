@@ -9,5 +9,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: build
-      run: ./build.sh
+    - name: Run make
+      run: ./make
