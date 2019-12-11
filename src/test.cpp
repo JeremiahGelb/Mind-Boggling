@@ -28,6 +28,9 @@ int main() {
         std::cout << "Testing Trie"  << std::endl;
         auto trie = create_trie();
         trie->add_word("cat");
+        trie->add_word("cap");
+        trie->add_word("bat");
+
         if (trie->word_in_tree("cat")) {
             std::cout << "cat was in tree!" << std::endl;
         }
@@ -53,6 +56,9 @@ int main() {
         }
         node->set_name("cat");
         trie->word_in_tree("cat");
+
+        std::cout << "--------- Printing tree preorder ------------" << std::endl;
+        trie->preorder_node_list(trie->head());
     }
 
     return EXIT_SUCCESS;

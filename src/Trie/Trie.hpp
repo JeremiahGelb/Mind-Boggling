@@ -2,8 +2,9 @@
 
 #include <string>
 #include <memory>
+#include <vector>
 // TODO(JeremiahGelb): get rid of relative path
-#include "../LetterNode/LetterNode.hpp"
+#include "../LetterNode/factory.hpp"
 
 
 class Trie {
@@ -17,6 +18,8 @@ class Trie {
     void add_word(const std::string & word);
 
     bool word_in_tree(const std::string & word) const;
+
+    std::vector<const std::shared_ptr<LetterNode>> preorder_node_list(const std::shared_ptr<LetterNode> & head);
 
  private:
     const std::shared_ptr<LetterNode> head_;
