@@ -2,7 +2,6 @@
 #include "LetterNode/factory.hpp"
 #include "Trie/factory.hpp"
 
-
 int main()
 {
 

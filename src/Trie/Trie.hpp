@@ -7,7 +7,7 @@
 
 
 class Trie {
-public:
+ public:
     Trie();
 
     const std::shared_ptr<LetterNode> & head() const {
@@ -18,7 +18,7 @@ public:
 
     bool word_in_tree(const std::string & word) const;
 
-private:
+ private:
     const std::shared_ptr<LetterNode> head_;
 };
 
