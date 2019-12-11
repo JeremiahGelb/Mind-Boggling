@@ -1,2 +1,2 @@
 # Mind-Boggling
-It's boggle, for dogs!
+It's boggle, for dogs, in arbitrary dimensions!
