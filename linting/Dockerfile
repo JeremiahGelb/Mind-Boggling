@@ -8,4 +8,4 @@ LABEL "com.github.actions.color"="6f42c1"
 RUN pip install --upgrade pip
 RUN pip install cpplint
 
-CMD ["cpplint", "/github/workspace/*/*"]
+ENTRYPOINT ["cpplint", "--recursive", "*/*"]
