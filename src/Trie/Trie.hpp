@@ -1,8 +1,10 @@
 #pragma once
 
-// TODO: get rid of relative path
-#include "../LetterNode/LetterNode.hpp"
 #include <string>
+#include <memory>
+// TODO(JeremiahGelb): get rid of relative path
+#include "../LetterNode/LetterNode.hpp"
+
 
 class Trie {
 public:
@@ -20,4 +22,4 @@ private:
     const std::shared_ptr<LetterNode> head_;
 };
 
-// TODO: recursive function to print it TrieOrder (haha)
+// TODO(JeremiahGelb): recursive function to print it TrieOrder (haha)
