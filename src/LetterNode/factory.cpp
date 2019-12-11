@@ -1,7 +1,4 @@
-#pragma once
-
-#include "LetterNode.hpp"
-#include <memory>
+#include "./factory.hpp"
 
 std::shared_ptr<LetterNode> create_letter_node(char letter)
 {
