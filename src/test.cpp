@@ -6,7 +6,7 @@
 int main()
 {
 
-    constexpr auto kTestLetterNode = true;
+    constexpr auto kTestLetterNode = false;
     constexpr auto kTestTrie = true;
 
     if (kTestLetterNode) {
@@ -34,7 +34,31 @@ int main()
         if (trie->word_in_tree("cat")) {
             std::cout << "cat was in tree!" << std::endl;
         }
+
+
+        if (trie->word_in_tree("dog")) {
+            std::cout << "Dog was in tree?" << std::endl;
+        } else {
+            std::cout << "As expected, dog was not in tree" << std::endl;
+        }
+
+
+        auto node = trie->head();
+        node = node->edges().at('c');
+        node = node->edges().at('a');
+        node = node->edges().at('t');
+        node->set_name("catt");
+        try {
+            trie->word_in_tree("cat");
+        }
+        catch (std::runtime_error e) {
+            std::cout << "bad name caught as expected" << std::endl;
+        }
+        node->set_name("cat");
+        trie->word_in_tree("cat");
+
     }
+
 
 
     return EXIT_SUCCESS;
