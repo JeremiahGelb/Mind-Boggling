@@ -10,4 +10,4 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Install and run cpplint
-      uses: JeremiahGelb/Mind-Boggling/linting@v1
+      uses: ./linting
