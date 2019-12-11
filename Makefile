@@ -21,3 +21,8 @@ clean:
 	$(RM) $(TARGET) $(OBJS) $(DEPS)
 
 -include $(DEPS)
+
+lint:
+	docker build -t cpplint ./linting
+
+	docker run -it -v $(PWD)/src:/src cpplint sh -c "cpplint --recursive src/*/*"
