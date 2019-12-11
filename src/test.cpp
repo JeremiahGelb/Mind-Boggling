@@ -2,9 +2,7 @@
 #include "LetterNode/factory.hpp"
 #include "Trie/factory.hpp"
 
-int main()
-{
-
+int main() {
     constexpr auto kTestLetterNode = false;
     constexpr auto kTestTrie = true;
 
@@ -55,10 +53,7 @@ int main()
         }
         node->set_name("cat");
         trie->word_in_tree("cat");
-
     }
-
-
 
     return EXIT_SUCCESS;
 }
