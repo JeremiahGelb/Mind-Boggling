@@ -25,4 +25,3 @@ class Trie {
     const std::shared_ptr<LetterNode> head_;
 };
 
-// TODO(JeremiahGelb): recursive function to print it TrieOrder (haha)
