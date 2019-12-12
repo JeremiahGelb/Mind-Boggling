@@ -1,10 +1,12 @@
 #include <iostream>
 #include "LetterNode/factory.hpp"
 #include "Trie/factory.hpp"
+#include "Board/factory.hpp"
 
 int main() {
     constexpr auto kTestLetterNode = false;
-    constexpr auto kTestTrie = true;
+    constexpr auto kTestTrie = false;
+    constexpr auto kTestBoard = true;
 
     if (kTestLetterNode) {
         std::cout << "Testing LetterNode" << std::endl;
@@ -59,6 +61,11 @@ int main() {
 
         std::cout << "--------- Printing tree preorder ------------" << std::endl;
         trie->preorder_node_list(trie->head());
+    }
+
+    if (kTestBoard) {
+        std::cout << "Testing Board"  << std::endl;
+        auto board = create_board;
     }
 
     return EXIT_SUCCESS;
