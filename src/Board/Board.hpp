@@ -16,7 +16,7 @@ class Board {
         tiles_.push_back(tile);
     }
 
-    bool word_in_board(std::string & word) const;
+    bool word_in_board(const std::string & word) const;
 
  private:
     // TODO(JG) this could be a map<char, vector<letterNode> > for faster search
