@@ -1,4 +1,4 @@
-name: Linter
+name: Lint
 
 on: [push]
 
@@ -9,5 +9,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Run Linter!
-      uses: ./Dockerfiles/linting
+    - name: Run Linter
+      uses: ./Dockerfiles/linter
