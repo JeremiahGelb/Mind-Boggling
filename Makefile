@@ -23,6 +23,11 @@ clean:
 -include $(DEPS)
 
 lint:
-	docker build -t cpplint ./linting
+	docker build -t cpplint ./Dockerfiles/linting
 
 	docker run -it -v $(PWD):/src cpplint sh -c "cd src && cpplint --recursive */*"
+
+dbuild:
+	docker build -t cppbuilder ./Dockerfiles/building
+
+	docker run -it -v $(PWD):/src cppbuilder make
