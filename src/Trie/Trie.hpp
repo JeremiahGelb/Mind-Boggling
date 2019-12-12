@@ -19,7 +19,7 @@ class Trie {
 
     bool word_in_tree(const std::string & word) const;
 
-    std::vector<const std::shared_ptr<LetterNode>> preorder_node_list(const std::shared_ptr<LetterNode> & head);
+    std::vector<std::shared_ptr<LetterNode>> preorder_node_list(const std::shared_ptr<LetterNode> & head);
 
  private:
     const std::shared_ptr<LetterNode> head_;

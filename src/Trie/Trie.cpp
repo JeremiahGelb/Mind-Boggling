@@ -47,9 +47,9 @@ bool Trie::word_in_tree(const std::string & word) const {
     return true;
 }
 
-std::vector<const std::shared_ptr<LetterNode>> Trie::preorder_node_list(const std::shared_ptr<LetterNode> & head) {
+std::vector<std::shared_ptr<LetterNode>> Trie::preorder_node_list(const std::shared_ptr<LetterNode> & head) {
     // TODO(JG): test that the list is also preorder
-    std::vector<const std::shared_ptr<LetterNode>> node_list = {head};
+    std::vector<std::shared_ptr<LetterNode>> node_list = {head};
     std::cout << *head << std::endl;
 
     for ([[maybe_unused]] const auto & [character, letter_node] : head->edges()) {

@@ -65,7 +65,7 @@ int main() {
 
     if (kTestBoard) {
         std::cout << "Testing Board"  << std::endl;
-        auto board = create_board;
+        auto board = create_board();
     }
 
     return EXIT_SUCCESS;
