@@ -35,6 +35,7 @@ class LetterNode {
 
  private:
     const char letter_;
+    // TODO(JG) this breaks if two adjacent tiles have the same letter. Either needs to be map of vectors by char or just a vector
     std::map<char, std::shared_ptr<LetterNode>> edges_ = {};
     std::string name_ = "";
     // in trie name can be set to represent a letter being th end of a word
