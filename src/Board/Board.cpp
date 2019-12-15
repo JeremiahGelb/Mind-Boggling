@@ -18,7 +18,7 @@ bool Board::word_in_board(const std::string & word) const {
 
 bool Board::substring_possible_from_head(std::string substring,
                                          std::shared_ptr<LetterNode> head,
-                                         std::vector<std::shared_ptr<LetterNode>> visited_nodes) const {
+                                         std::unordered_set<std::shared_ptr<LetterNode>> visited_nodes) const {
     // TODO(JG) implement me
     return false;
 }

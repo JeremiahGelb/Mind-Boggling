@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <unordered_set>
 #include <map>
 #include <memory>
 #include <string>
@@ -9,27 +9,27 @@
 
 class Board {
  public:
-    const std::map<char, std::vector<std::shared_ptr<LetterNode>>> & tiles() {
+    const std::map<char, std::unordered_set<std::shared_ptr<LetterNode>>> & tiles() {
         return tiles_;
     }
 
     void add_tile(std::shared_ptr<LetterNode> tile) {
-        // TODO(JG): make sure they don't add the same edge twice or themself
+        // TODO(JG): make sure they don't add themself
         try {
-            auto tile_vector = tiles_.at(tile->letter());
-            tile_vector.push_back(tile);
+            auto tile_set = tiles_.at(tile->letter());
+            tile_set.insert(tile);
         }
         catch (std::out_of_range e) {
-            std::vector<std::shared_ptr<LetterNode>> tile_vector = {tile};
-            tiles_.insert({tile->letter(), tile_vector});
+            std::unordered_set<std::shared_ptr<LetterNode>> tile_set = {tile};
+            tiles_.insert({tile->letter(), tile_set});
         }
     }
 
     bool word_in_board(const std::string & word) const;
 
  private:
-    std::map<char, std::vector<std::shared_ptr<LetterNode>>> tiles_;
+    std::map<char, std::unordered_set<std::shared_ptr<LetterNode>>> tiles_;
     bool substring_possible_from_head(std::string substring,
                                       std::shared_ptr<LetterNode> head,
-                                      std::vector<std::shared_ptr<LetterNode>> visited_nodes) const;
+                                      std::unordered_set<std::shared_ptr<LetterNode>> visited_nodes) const;
 };
