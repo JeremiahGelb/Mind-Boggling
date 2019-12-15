@@ -23,7 +23,6 @@ class Board {
             std::vector<std::shared_ptr<LetterNode>> tile_vector = {tile};
             tiles_.insert({tile->letter(), tile_vector});
         }
-
     }
 
     bool word_in_board(const std::string & word) const;
