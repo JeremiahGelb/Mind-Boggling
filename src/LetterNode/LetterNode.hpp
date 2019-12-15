@@ -25,7 +25,7 @@ class LetterNode {
 
     void add_edge(std::shared_ptr<LetterNode> edge) {
         try {
-            // TODO(JG): make sure you don't add the same edge twice or yourself
+            // TODO(JG): make sure you don't add yourself
             auto letter_node_set = edges_.at(edge->letter());
             letter_node_set.insert(edge);
         }
