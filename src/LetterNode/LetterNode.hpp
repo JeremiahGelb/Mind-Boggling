@@ -5,6 +5,9 @@
 #include <map>
 #include <string>
 #include <iostream>
+#include <vector>
+
+// TODO(JG): some of these fucntions should get moved to the cpp
 
 class LetterNode {
  public:
@@ -12,7 +15,7 @@ class LetterNode {
     : letter_(letter) {
     }
 
-    const std::map<char, std::shared_ptr<LetterNode>> & edges() const {
+    const std::map<char, std::vector<std::shared_ptr<LetterNode>>> & edges() const {
         return edges_;
     }
 
@@ -21,8 +24,15 @@ class LetterNode {
     }
 
     void add_edge(std::shared_ptr<LetterNode> edge) {
-        // TODO(JG): make sure you don't add the same edge twice or yourself
-        edges_.insert({edge->letter(), edge});
+        try {
+            // TODO(JG): make sure you don't add the same edge twice or yourself
+            auto letter_node_vector = edges_.at(edge->letter());
+            letter_node_vector.push_back(edge);
+        }
+        catch (std::out_of_range & e) {
+            std::vector<std::shared_ptr<LetterNode>> letter_node_vector = {edge};
+            edges_.insert({edge->letter(), letter_node_vector});
+        }
     }
 
     const std::string & name() const {
@@ -35,9 +45,7 @@ class LetterNode {
 
  private:
     const char letter_;
-    // TODO(JG) this breaks if two adjacent tiles have the same letter.
-    // Either needs to be map of vectors by char or just a vector
-    std::map<char, std::shared_ptr<LetterNode>> edges_ = {};
+    std::map<char, std::vector<std::shared_ptr<LetterNode>>> edges_ = {};
     std::string name_ = "";
     // in trie name can be set to represent a letter being th end of a word
     // in the gameboard the name can be set to represent the coordinates

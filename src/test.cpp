@@ -46,9 +46,9 @@ int main() {
 
 
         auto node = trie->head();
-        node = node->edges().at('c');
-        node = node->edges().at('a');
-        node = node->edges().at('t');
+        node = node->edges().at('c')[0];
+        node = node->edges().at('a')[0];
+        node = node->edges().at('t')[0];
         node->set_name("catt");
         try {
             trie->word_in_tree("cat");

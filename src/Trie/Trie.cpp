@@ -9,13 +9,17 @@ Trie::Trie()
     head_->set_name("HEAD");
 }
 
+// TODO(Jg): constexpr auto first_child = 0 is ugly. Figure out something better
+
 void Trie::add_word(const std::string & word) {
     auto current_node = head_;
     auto next_node = head_;
 
     for (const auto letter : word) {
         try {
-            next_node = current_node->edges().at(letter);
+            // Correctly formed trie should only have one child for each letter
+            constexpr auto first_child = 0;
+            next_node = current_node->edges().at(letter)[0];
         }
         catch (std::out_of_range & e) {
             next_node = create_letter_node(letter);
@@ -33,7 +37,9 @@ bool Trie::word_in_tree(const std::string & word) const {
 
     for (const auto letter : word) {
         try {
-            next_node = current_node->edges().at(letter);
+            // Correctly formed trie should only have one child for each letter
+            constexpr auto first_child = 0;
+            next_node = current_node->edges().at(letter)[first_child];
         }
         catch (std::out_of_range & e) {
             return false;
@@ -52,8 +58,10 @@ std::vector<std::shared_ptr<LetterNode>> Trie::preorder_node_list(const std::sha
     std::vector<std::shared_ptr<LetterNode>> node_list = {head};
     std::cout << *head << std::endl;
 
-    for ([[maybe_unused]] const auto & [character, letter_node] : head->edges()) {
-        auto child_node_list = preorder_node_list(letter_node);
+    for ([[maybe_unused]] const auto & [character, letter_node_vector] : head->edges()) {
+        // Correctly formed trie should only have one child for each letter
+        constexpr auto first_child = 0;
+        auto child_node_list = preorder_node_list(letter_node_vector[0]);
         std::move(child_node_list.begin(), child_node_list.end(), std::back_inserter(node_list));
     }
 
