@@ -29,4 +29,7 @@ class Board {
 
  private:
     std::map<char, std::vector<std::shared_ptr<LetterNode>>> tiles_;
+    bool substring_possible_from_head(std::string substring,
+                                      std::shared_ptr<LetterNode> head,
+                                      std::vector<std::shared_ptr<LetterNode>> visited_nodes) const;
 };

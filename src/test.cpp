@@ -66,6 +66,36 @@ int main() {
     if (kTestBoard) {
         std::cout << "Testing Board"  << std::endl;
         auto board = create_board();
+        // tile_ROWxCOLUMN
+        // b <-> a <-> t
+        // should have bat, tab, at, ab
+        auto tile_1x1 = create_letter_node('b');
+        tile_1x1->set_name("1x1");
+        auto tile_1x2 = create_letter_node('a');
+        tile_1x2->set_name("1x2");
+        auto tile_1x3 = create_letter_node('t');
+        tile_1x3->set_name("1x3");
+
+        tile_1x1->add_edge(tile_1x2);
+        tile_1x2->add_edge(tile_1x1);
+        tile_1x2->add_edge(tile_1x3);
+        tile_1x3->add_edge(tile_1x2);
+
+        board->add_tile(tile_1x1);
+        board->add_tile(tile_1x2);
+        board->add_tile(tile_1x3);
+
+        if (board->word_in_board("bat")) {
+            std::cout << "bat in board as expected" << std::endl;
+        } else {
+            std::cout << "bat was not in board" << std::endl;
+        }
+
+        if (board->word_in_board("tab")) {
+            std::cout << "tab in board as expected" << std::endl;
+        } else {
+            std::cout << "tab was not in board" << std::endl;
+        }
     }
 
     return EXIT_SUCCESS;
