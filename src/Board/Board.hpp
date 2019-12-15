@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <map>
 #include <memory>
 #include <string>
 
@@ -8,17 +9,25 @@
 
 class Board {
  public:
-    const std::vector<std::shared_ptr<LetterNode>> & tiles() {
+    const std::map<char, std::vector<std::shared_ptr<LetterNode>>> & tiles() {
         return tiles_;
     }
 
     void add_tile(std::shared_ptr<LetterNode> tile) {
-        tiles_.push_back(tile);
+        // TODO(JG): make sure they don't add the same edge twice or themself
+        try {
+            auto tile_vector = tiles_.at(tile->letter());
+            tile_vector.push_back(tile);
+        }
+        catch (std::out_of_range e) {
+            std::vector<std::shared_ptr<LetterNode>> tile_vector = {tile};
+            tiles_.insert({tile->letter(), tile_vector});
+        }
+
     }
 
     bool word_in_board(const std::string & word) const;
 
  private:
-    // TODO(JG) this could be a map<char, vector<letterNode> > for faster search
-    std::vector<std::shared_ptr<LetterNode>> tiles_;
+    std::map<char, std::vector<std::shared_ptr<LetterNode>>> tiles_;
 };
