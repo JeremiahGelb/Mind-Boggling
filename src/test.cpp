@@ -96,6 +96,30 @@ int main() {
         } else {
             std::cout << "tab was not in board" << std::endl;
         }
+
+        if (board->word_in_board("ab")) {
+            std::cout << "ab in board as expected" << std::endl;
+        } else {
+            std::cout << "ab was not in board" << std::endl;
+        }
+
+        if (board->word_in_board("a")) {
+            std::cout << "a in board as expected" << std::endl;
+        } else {
+            std::cout << "a was not in board" << std::endl;
+        }
+
+        if (board->word_in_board("taba")) {
+            std::cout << "taba in board (fail)" << std::endl;
+        } else {
+            std::cout << "taba was not in board as expected" << std::endl;
+        }
+
+        if (board->word_in_board("tac")) {
+            std::cout << "tac in board (fail)" << std::endl;
+        } else {
+            std::cout << "tac was not in board as expected" << std::endl;
+        }
     }
 
     return EXIT_SUCCESS;

@@ -31,5 +31,5 @@ class Board {
     std::map<char, std::unordered_set<std::shared_ptr<LetterNode>>> tiles_;
     bool substring_possible_from_head(std::string substring,
                                       std::shared_ptr<LetterNode> head,
-                                      std::unordered_set<std::shared_ptr<LetterNode>> visited_nodes) const;
+                                      std::unordered_set<std::shared_ptr<LetterNode>> & visited_nodes) const;
 };
