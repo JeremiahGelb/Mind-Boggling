@@ -2,11 +2,13 @@
 #include "LetterNode/factory.hpp"
 #include "Trie/factory.hpp"
 #include "Board/factory.hpp"
+#include "TrieFiller/TrieFiller.hpp"
 
 int main() {
     constexpr auto kTestLetterNode = false;
     constexpr auto kTestTrie = false;
-    constexpr auto kTestBoard = true;
+    constexpr auto kTestBoard = false;
+    constexpr auto kTestTrieFiller = true;
 
     if (kTestLetterNode) {
         std::cout << "Testing LetterNode" << std::endl;
@@ -33,12 +35,12 @@ int main() {
         trie->add_word("cap");
         trie->add_word("bat");
 
-        if (trie->word_in_tree("cat")) {
+        if (trie->contains_word("cat")) {
             std::cout << "cat was in tree!" << std::endl;
         }
 
 
-        if (trie->word_in_tree("dog")) {
+        if (trie->contains_word("dog")) {
             std::cout << "Dog was in tree?" << std::endl;
         } else {
             std::cout << "As expected, dog was not in tree" << std::endl;
@@ -51,13 +53,13 @@ int main() {
         node = *node->edges().at('t').begin();
         node->set_name("catt");
         try {
-            trie->word_in_tree("cat");
+            trie->contains_word("cat");
         }
         catch (std::runtime_error e) {
             std::cout << "bad name caught as expected" << std::endl;
         }
         node->set_name("cat");
-        trie->word_in_tree("cat");
+        trie->contains_word("cat");
 
         std::cout << "--------- Printing tree preorder ------------" << std::endl;
         trie->preorder_node_list(trie->head());
@@ -119,6 +121,22 @@ int main() {
             std::cout << "tac in board (fail)" << std::endl;
         } else {
             std::cout << "tac was not in board as expected" << std::endl;
+        }
+    }
+
+    if (kTestTrieFiller) {
+        auto trie = create_trie();
+        std::cout << "Filling trie..." << std::endl;
+        fill_trie(trie);
+        std::cout << "Done filling trie" << std::endl;
+
+        if (trie->contains_word("zipper")) {
+            std::cout << "zipper in trie as expected" << std::endl;
+        } else {
+            std::cout << "zipper not in trie (fail)" << std::endl;
+        }
+        if (trie->contains_word("Zipper")) {
+            std::cout << "Zipper in trie!!! (fail)"  << std::endl;
         }
     }
 
