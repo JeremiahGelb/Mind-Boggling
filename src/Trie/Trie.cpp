@@ -28,7 +28,7 @@ void Trie::add_word(const std::string & word) {
     current_node->set_name(word);
 }
 
-bool Trie::word_in_tree(const std::string & word) const {
+bool Trie::contains_word(const std::string & word) const {
     auto current_node = head_;
     auto next_node = head_;
 
@@ -44,7 +44,7 @@ bool Trie::word_in_tree(const std::string & word) const {
     }
 
     if (current_node->name() != word) {
-        throw std::runtime_error("word_in_tree: name doesn't match expected");
+        throw std::runtime_error("contains_word: name doesn't match expected");
     }
     return true;
 }

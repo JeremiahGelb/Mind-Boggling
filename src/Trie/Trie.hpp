@@ -17,7 +17,7 @@ class Trie {
 
     void add_word(const std::string & word);
 
-    bool word_in_tree(const std::string & word) const;
+    bool contains_word(const std::string & word) const;
 
     std::vector<std::shared_ptr<LetterNode>> preorder_node_list(const std::shared_ptr<LetterNode> & head);
 
