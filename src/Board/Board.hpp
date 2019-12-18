@@ -25,7 +25,7 @@ class Board {
         }
     }
 
-    bool word_in_board(const std::string & word) const;
+    bool contains_word(const std::string & word) const;
 
  private:
     std::map<char, std::unordered_set<std::shared_ptr<LetterNode>>> tiles_;

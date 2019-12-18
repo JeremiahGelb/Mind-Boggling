@@ -7,8 +7,8 @@
 int main() {
     constexpr auto kTestLetterNode = false;
     constexpr auto kTestTrie = false;
-    constexpr auto kTestBoard = false;
-    constexpr auto kTestTrieFiller = true;
+    constexpr auto kTestBoard = true;
+    constexpr auto kTestTrieFiller = false;
 
     if (kTestLetterNode) {
         std::cout << "Testing LetterNode" << std::endl;
@@ -87,37 +87,37 @@ int main() {
         board->add_tile(tile_1x2);
         board->add_tile(tile_1x3);
 
-        if (board->word_in_board("bat")) {
+        if (board->contains_word("bat")) {
             std::cout << "bat in board as expected" << std::endl;
         } else {
             std::cout << "bat was not in board" << std::endl;
         }
 
-        if (board->word_in_board("tab")) {
+        if (board->contains_word("tab")) {
             std::cout << "tab in board as expected" << std::endl;
         } else {
             std::cout << "tab was not in board" << std::endl;
         }
 
-        if (board->word_in_board("ab")) {
+        if (board->contains_word("ab")) {
             std::cout << "ab in board as expected" << std::endl;
         } else {
             std::cout << "ab was not in board" << std::endl;
         }
 
-        if (board->word_in_board("a")) {
+        if (board->contains_word("a")) {
             std::cout << "a in board as expected" << std::endl;
         } else {
             std::cout << "a was not in board" << std::endl;
         }
 
-        if (board->word_in_board("taba")) {
+        if (board->contains_word("taba")) {
             std::cout << "taba in board (fail)" << std::endl;
         } else {
             std::cout << "taba was not in board as expected" << std::endl;
         }
 
-        if (board->word_in_board("tac")) {
+        if (board->contains_word("tac")) {
             std::cout << "tac in board (fail)" << std::endl;
         } else {
             std::cout << "tac was not in board as expected" << std::endl;

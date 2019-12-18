@@ -1,6 +1,6 @@
 #include "Board.hpp"
 
-bool Board::word_in_board(const std::string & word) const {
+bool Board::contains_word(const std::string & word) const {
     try {
         auto heads = tiles_.at(word[0]);
 
