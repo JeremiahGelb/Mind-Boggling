@@ -1,4 +1,8 @@
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <algorithm>
+
 #include "LetterNode/factory.hpp"
 #include "Trie/factory.hpp"
 #include "Board/factory.hpp"
@@ -8,7 +12,8 @@ int main() {
     constexpr auto kTestLetterNode = false;
     constexpr auto kTestTrie = false;
     constexpr auto kTestBoard = false;
-    constexpr auto kTestTrieFiller = true;
+    constexpr auto kTestTrieFiller = false;
+    constexpr auto kKatie = true;
 
     if (kTestLetterNode) {
         std::cout << "Testing LetterNode" << std::endl;
@@ -137,6 +142,74 @@ int main() {
         }
         if (trie->contains_word("Zipper")) {
             std::cout << "Zipper in trie!!! (fail)"  << std::endl;
+        }
+    }
+
+    if (kKatie) {
+        auto board = create_board();
+        // r o e d e d
+        auto tile_1 = create_letter_node('f');
+        auto tile_2 = create_letter_node('l');
+        auto tile_3 = create_letter_node('a');
+        auto tile_4 = create_letter_node('l');
+        auto tile_5 = create_letter_node('n');
+        auto tile_6 = create_letter_node('e');
+
+        tile_1->add_edge(tile_2);
+        tile_1->add_edge(tile_3);
+        tile_1->add_edge(tile_4);
+        tile_1->add_edge(tile_5);
+        tile_1->add_edge(tile_6);
+
+        tile_2->add_edge(tile_1);
+        tile_2->add_edge(tile_3);
+        tile_2->add_edge(tile_4);
+        tile_2->add_edge(tile_5);
+        tile_2->add_edge(tile_6);
+
+        tile_3->add_edge(tile_2);
+        tile_3->add_edge(tile_1);
+        tile_3->add_edge(tile_4);
+        tile_3->add_edge(tile_5);
+        tile_3->add_edge(tile_6);
+
+        tile_4->add_edge(tile_2);
+        tile_4->add_edge(tile_3);
+        tile_4->add_edge(tile_1);
+        tile_4->add_edge(tile_5);
+        tile_4->add_edge(tile_6);
+
+        tile_5->add_edge(tile_2);
+        tile_5->add_edge(tile_3);
+        tile_5->add_edge(tile_4);
+        tile_5->add_edge(tile_1);
+        tile_5->add_edge(tile_6);
+
+        tile_6->add_edge(tile_2);
+        tile_6->add_edge(tile_3);
+        tile_6->add_edge(tile_4);
+        tile_6->add_edge(tile_5);
+        tile_6->add_edge(tile_1);
+
+        board->add_tile(tile_1);
+        board->add_tile(tile_2);
+        board->add_tile(tile_3);
+        board->add_tile(tile_4);
+        board->add_tile(tile_5);
+        board->add_tile(tile_6);
+
+        constexpr auto kDictionaryFileName = "/usr/share/dict/web2";
+        std::ifstream file(kDictionaryFileName);
+        std::string word;
+        if (!file) {
+            std::cout << "Failed to open file: " << kDictionaryFileName << std::endl;
+        }
+        while (std::getline(file, word)) {
+            std::transform(word.begin(), word.end(), word.begin(),
+            [](unsigned char c){ return std::tolower(c); });
+            if (word.length() == 5 && board->word_in_board(word)) {
+                std::cout << word << std::endl;
+            }
         }
     }
 
