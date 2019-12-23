@@ -5,7 +5,7 @@
 #include <algorithm>
 
 void fill_trie(std::shared_ptr<Trie> trie) {
-    constexpr auto kDictionaryFileName = "/usr/share/dict/web2";
+    constexpr auto kDictionaryFileName = "/usr/share/dict/words";
     std::ifstream file(kDictionaryFileName);
     std::string word;
     if (!file) {
