@@ -3,12 +3,14 @@
 #include "Trie/factory.hpp"
 #include "Board/factory.hpp"
 #include "TrieFiller/TrieFiller.hpp"
+#include "timeit/timeit.hpp"
 
 int main() {
     constexpr auto kTestLetterNode = false;
     constexpr auto kTestTrie = false;
-    constexpr auto kTestBoard = true;
+    constexpr auto kTestBoard = false;
     constexpr auto kTestTrieFiller = false;
+    constexpr auto kTestTimeIt = true;
 
     if (kTestLetterNode) {
         std::cout << "Testing LetterNode" << std::endl;
@@ -138,6 +140,12 @@ int main() {
         if (trie->contains_word("Zipper")) {
             std::cout << "Zipper in trie!!! (fail)"  << std::endl;
         }
+    }
+
+    if (kTestTimeIt) {
+        std::cout << "Testing timeit!" << std::endl;
+        auto trie = create_trie();
+        timeit([&trie]{fill_trie(trie);}, "fill_trie");
     }
 
     return EXIT_SUCCESS;
