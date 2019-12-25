@@ -1,3 +1,7 @@
+# ignore build directory
+build/*
+
+
 *.o
 .vscode/*
 *.d

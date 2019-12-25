@@ -1,0 +1,17 @@
+name: Test
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: docker://srzzumix/googletest:latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Test Code
+      run: |
+        mkdir build && cd build
+        cmake ..
+        make all
+        ./test/ExampleProject_test
