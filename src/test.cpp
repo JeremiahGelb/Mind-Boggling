@@ -146,6 +146,12 @@ int main() {
         std::cout << "Testing timeit!" << std::endl;
         auto trie = create_trie();
         timeit([&trie]{fill_trie(trie);}, "fill_trie");
+
+        trie = create_trie();
+        auto board = create_board();
+        auto tile = create_letter_node('t');
+        board->add_tile(tile);
+        timeit([&trie, &board]{fill_trie(trie, board);}, "fill_trie (with board)");
     }
 
     return EXIT_SUCCESS;
