@@ -1,5 +1,6 @@
-# ignore build directory
+# ignore build and lib directories
 build/*
+lib/*
 
 
 *.o
