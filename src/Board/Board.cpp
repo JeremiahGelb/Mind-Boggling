@@ -23,6 +23,16 @@ bool Board::contains_word(const std::string & word) const {
     }
 }
 
+bool Board::contains_letter(const char letter) const {
+    try {
+        tiles_.at(letter);
+        return true;
+    }
+    catch (std::out_of_range e) {
+        return false;
+    }
+}
+
 bool Board::substring_possible_from_head(std::string substring,
                                          std::shared_ptr<LetterNode> head,
                                          std::unordered_set<std::shared_ptr<LetterNode>> & visited_nodes) const {
