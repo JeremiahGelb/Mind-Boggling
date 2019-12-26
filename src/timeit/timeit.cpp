@@ -1,6 +1,7 @@
 #include "timeit.hpp"
 
 #include <iostream>
+#include <chrono>
 
 void timeit(std::function<void()> function, std::string function_name) {
     auto start = std::chrono::high_resolution_clock::now();
