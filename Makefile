@@ -32,5 +32,7 @@ dbuild:
 
 	docker run -it -v $(PWD):/src cppbuilder make
 
-test:
-	docker run -it -v $(PWD):/src srzzumix/googletest:latest sh -c "make && make test"
+dtest:
+	docker build -t cpptester ./Dockerfiles/tester
+
+	docker run -it -v $(PWD):/src cpptester
