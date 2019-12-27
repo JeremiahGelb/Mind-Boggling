@@ -11,4 +11,4 @@ jobs:
     - name: Run Testing
       uses: ./
       with:
-        entrypoint: ./test/ExampleProject_test
+        entrypoint: /src/build/test/ExampleProject_test
