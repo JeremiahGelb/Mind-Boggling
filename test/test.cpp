@@ -7,7 +7,7 @@
 #include "timeit/timeit.hpp"
 
 TEST(TestName, Other) {
-    EXPECT_EQ (0, 0);
+    EXPECT_EQ(0, 0);
     // EXPECT_EQ (Formula::bla (10), 20);
 }
 
