@@ -9,6 +9,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Run Testing
-      uses: .
+      uses: ./
       with:
         entrypoint: ./test/ExampleProject_test
