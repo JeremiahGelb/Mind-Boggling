@@ -23,16 +23,14 @@ clean:
 -include $(DEPS)
 
 lint:
-	docker build -t cpplint ./Dockerfiles/linter
+	docker build -t cpplint ./linter
 
 	docker run -it -v $(PWD):/src cpplint sh -c "cd src && cpplint --recursive */*"
 
 dbuild:
-	docker build -t cppbuilder ./Dockerfiles/builder
-
-	docker run -it -v $(PWD):/src cppbuilder make
+	docker build -t bogglebuild -f ./Dockerfiles/builder/Dockerfile .
 
 dtest:
-	docker build -t cpptester ./Dockerfiles/tester
+	docker build -t bogglebuild -f ./Dockerfiles/builder/Dockerfile .
 
-	docker run -it -v $(PWD):/src cpptester
+	docker run -it -v $(PWD):/src bogglebuild ./test/ExampleProject_test
