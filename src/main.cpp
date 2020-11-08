@@ -6,13 +6,13 @@
 #include "Solver/factory.hpp"
 #include "timeit/timeit.hpp"
 
-int main() {
-    constexpr auto kTestLetterNode = false;
-    constexpr auto kTestTrie = false;
-    constexpr auto kTestBoard = false;
-    constexpr auto kTestTrieFiller = false;
-    constexpr auto kTestTimeIt = false;
-    constexpr auto kTestSolver = true;
+void manual_test() {
+    constexpr auto kTestLetterNode = true;
+    constexpr auto kTestTrie = true;
+    constexpr auto kTestBoard = true;
+    constexpr auto kTestTrieFiller = true;
+    constexpr auto kTestTimeIt = true;
+    constexpr auto kTestSolver = false;
 
     if (kTestLetterNode) {
         std::cout << "Testing LetterNode" << std::endl;
@@ -243,12 +243,98 @@ int main() {
         std::cout << "Testing Solver: making solver" << std::endl;
         auto solver = create_solver(board, trie);
 
+        constexpr auto kMinLength = 4;
         for (const auto & word : solver->words()) {
-            if (word.size() >= 4 && word.find(tile_7->letter()) != std::string::npos) {
-                std::cout << word << std::endl;
+            if (word.size() >= kMinLength && word.find('e') != std::string::npos) {
+                // std::cout << word << std::endl;
             }
         }
     }
+}
+
+void print_help_text(std::string_view error = "") {
+    std::cout << std::endl;
+
+    if (!error.empty()) {
+        std::cout << error << std::endl;
+    }
+    std::cout << "try one of these options:" << std::endl;
+    std::cout << "1) ./run.o --test" << std::endl;
+    std::cout << "2) ./run.o --spellingbee <CenterLetter><letter><letter><letter><letter><letter><letter>" << std::endl;
+}
+
+void spelling_bee(const std::vector<std::string> & args) {
+    auto letters = args[2];
+    auto board = create_board();
+    std::vector<std::shared_ptr<LetterNode>> nodes;
+    std::cout << "Making Game Board..." << std::endl;
+    timeit(
+        [&nodes, &letters, &board] {
+            for (const auto letter : letters) {
+                auto node = nodes.emplace_back(create_letter_node(letter));
+                board->add_tile(node);
+            }
+
+            for (const auto & node_1 : nodes) {
+                for (const auto & node_2 : nodes) {
+                    node_1->add_edge(node_2);
+                }
+            }
+        },
+        "Making Game Board"
+    );
+
+    std::cout << "Making Dictionary..." << std::endl;
+    auto trie = create_trie();
+    timeit(
+        [&trie, &board] {
+            fill_trie(trie, board);
+        },
+        "Making Dictionary"
+    );
+
+
+    std::cout << "Solving Puzzle..." << std::endl;
+    std::shared_ptr<Solver> solver;
+    timeit(
+        [&solver, &trie, &board] {
+            solver = create_solver(board, trie);
+        },
+        "Solving Puzzle"
+    );
+
+    std::cout << "Hit Enter to print out words\n" << std::endl;
+    std::cin.ignore();
+    constexpr auto kMinLength = 4;
+    constexpr auto kCenterLetterIndex = 0;
+    for (const auto & word : solver->words()) {
+        if (word.size() >= kMinLength && word.find(letters[kCenterLetterIndex]) != std::string::npos) {
+            std::cout << word << std::endl;
+        }
+    }
+}
+
+int main(int argc, char ** argv) {
+    // not needed but I don't want to work with char ** :)
+    std::vector<std::string> args;
+    for (auto i = 0; i < argc; ++i) {
+        args.push_back(std::string(argv[i]));
+    }
+
+    const auto received_params = args.size();
+
+    constexpr auto kModeIndex = 1;
+
+    const auto & mode = args[kModeIndex];
+    if (mode == "--test") {
+        manual_test();
+    } else if (mode == "--spellingbee") {
+        spelling_bee(args);
+    } else {
+        print_help_text();
+    }
+
+    return 0;
 
     return EXIT_SUCCESS;
 }
