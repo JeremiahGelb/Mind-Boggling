@@ -4,8 +4,14 @@
 #include <string>
 #include <algorithm>
 
+namespace {
+
+// TODO(jg): fix relative paths
+constexpr auto kDictionaryFileName = "./english-words/words.txt";
+
+}  // namespace
+
 void fill_trie(std::shared_ptr<Trie> trie) {
-    constexpr auto kDictionaryFileName = "/usr/share/dict/words";
     std::ifstream file(kDictionaryFileName);
     std::string word;
     if (!file) {
@@ -20,7 +26,6 @@ void fill_trie(std::shared_ptr<Trie> trie) {
 
 void fill_trie(std::shared_ptr<Trie> trie, std::shared_ptr<Board> board) {
     // don't add word if the first letter isn't in the board
-    constexpr auto kDictionaryFileName = "/usr/share/dict/words";
     std::ifstream file(kDictionaryFileName);
     std::string word;
     if (!file) {
