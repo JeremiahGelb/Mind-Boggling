@@ -1,5 +1,7 @@
 # Mind-Boggling
-It's boggle, for dogs, in arbitrary dimensions!
+It's boggle in arbitrary dimensions!
+
+This framework can be used to solve many word games including NYT spelling bee, Boggle, and Crosswords
 
 
 ### Is it working?
