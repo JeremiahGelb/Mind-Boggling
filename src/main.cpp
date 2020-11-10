@@ -214,7 +214,9 @@ void print_help_text(std::string_view error = "") {
     }
     std::cout << "try one of these options:" << std::endl;
     std::cout << "1) ./run.o --test" << std::endl;
-    std::cout << "2) ./run.o --spellingbee <CenterLetter><letter><letter><letter><letter><letter><letter>" << std::endl;
+    std::cout << "2) ./run.o --spelling-bee "
+              << "<CenterLetter><letter><letter><letter><letter><letter><letter>"
+              << std::endl;
 }
 
 void spelling_bee(const std::vector<std::string> & args) {
@@ -282,7 +284,7 @@ int main(int argc, char ** argv) {
     const auto & mode = args[kModeIndex];
     if (mode == "--test") {
         manual_test();
-    } else if (mode == "--spellingbee") {
+    } else if (mode == "--spelling-bee") {
         spelling_bee(args);
     } else {
         print_help_text();
