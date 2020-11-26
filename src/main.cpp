@@ -217,6 +217,7 @@ void print_help_text(std::string_view error = "") {
     std::cout << "2) ./run.o --spelling-bee "
               << "<CenterLetter><letter><letter><letter><letter><letter><letter>"
               << std::endl;
+    std::cout << "3) ./run.o --boggle <first_row> <second_row> <...> <nth_row>" << std::endl;
 }
 
 void spelling_bee(const std::vector<std::string> & args) {
@@ -227,7 +228,7 @@ void spelling_bee(const std::vector<std::string> & args) {
     timeit(
         [&nodes, &letters, &board] {
             for (const auto letter : letters) {
-                auto node = nodes.emplace_back(create_letter_node(letter));
+                auto & node = nodes.emplace_back(create_letter_node(letter));
                 board->add_tile(node);
             }
 
@@ -270,6 +271,100 @@ void spelling_bee(const std::vector<std::string> & args) {
     }
 }
 
+void boggle(const std::vector<std::string> & args) {
+    const auto & first_row = args[2];
+    const auto number_of_rows = args.size() - 2;
+    const auto number_of_columns = first_row.length();
+
+    std::cout << "Based on the length of the first row, assuming "
+              << number_of_rows << " rows and "
+              << number_of_columns << " columns." << std::endl;
+
+    auto board = create_board();
+
+    // Step 1: transform list of strings into list of list of letternodes and add to board
+    // consider using std::transform here?
+    // or maybe new <ranges> header
+    std::vector<std::vector<std::shared_ptr<LetterNode>>> rows;
+    for (auto row_index = 2; row_index < args.size(); ++row_index) {
+        const auto & row_string = args[row_index];
+
+        if (row_string.length() != number_of_columns) {
+            std::cout << "ERROR: row: [" << row_string
+                      << "] did not have " << number_of_columns
+                      << " columns." << std::endl;
+            return;
+        }
+
+        auto & row = rows.emplace_back(std::vector<std::shared_ptr<LetterNode>>());
+        for (const auto letter : row_string) {
+            auto & node = row.emplace_back(create_letter_node(letter));
+            board->add_tile(node);
+        }
+    }
+
+    // Step 2: connect adjacent tiles
+    const auto are_valid_indices = [number_of_rows,
+                                    number_of_columns] (const auto row_index,
+                                                        const auto column_index) {
+        const auto row_in_bounds = row_index >= 0
+                                   && row_index < number_of_rows;
+        const auto column_in_bounds = column_index >= 0
+                                      && column_index < number_of_columns;
+
+        return row_in_bounds && column_in_bounds;
+    };
+
+    for (auto row_index = 0; row_index < number_of_rows; ++row_index) {
+        for (auto column_index = 0; column_index < number_of_columns; ++column_index) {
+            std::vector<std::pair<int, int>> potential_adjacent_indices = {
+                {row_index - 1, column_index - 1},
+                {row_index - 1, column_index},
+                {row_index - 1, column_index + 1},
+                {row_index, column_index - 1},
+                {row_index, column_index + 1},
+                {row_index + 1, column_index - 1},
+                {row_index + 1, column_index},
+                {row_index + 1, column_index + 1},
+            };
+
+            for (const auto & [adjacent_row_index, adjacent_column_index] : potential_adjacent_indices) {
+                if (are_valid_indices(adjacent_row_index, adjacent_column_index)) {
+                    rows[row_index][column_index]->add_edge(rows[adjacent_row_index][adjacent_column_index]);
+                }
+            }
+        }
+    }
+
+    std::cout << "Making Dictionary..." << std::endl;
+    auto trie = create_trie();
+    timeit(
+        [&trie, &board] {
+            fill_trie(trie, board);
+        },
+        "Making Dictionary"
+    );
+
+    std::cout << "Solving Puzzle..." << std::endl;
+    std::shared_ptr<Solver> solver;
+    timeit(
+        [&solver, &trie, &board] {
+            solver = create_solver(board, trie, false);
+        },
+        "Solving Puzzle"
+    );
+
+    std::cout << "Hit Enter to print out words\n" << std::endl;
+    std::cin.ignore();
+    constexpr auto kMinLength = 3;
+    constexpr auto kCenterLetterIndex = 0;
+    for (const auto & word : solver->words()) {
+        if (word.size() >= kMinLength) {
+            std::cout << word << std::endl;
+        }
+    }
+}
+
 int main(int argc, char ** argv) {
     // not needed but I don't want to work with char ** :)
     std::vector<std::string> args;
@@ -286,6 +381,8 @@ int main(int argc, char ** argv) {
         manual_test();
     } else if (mode == "--spelling-bee") {
         spelling_bee(args);
+    } else if (mode == "--boggle") {
+        boggle(args);
     } else {
         print_help_text();
     }
